@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Battle_0.unity
+    path: Assets/Scenes/Test/StrangeIOC_Dispatcher/Battle_0.unity
     guid: f2c8d72ab0f8d4f4e9a065161258a5ee
   - enabled: 1
     path: Assets/StrangeIoCFrame/examples/Assets/scenes/multiplecontexts/main.unity
