@@ -23,7 +23,7 @@ public class InputListener : MonoSingleton<InputListener>
             {
                 currentKey = e.keyCode;
 
-                if (currentKey.ToString() == "None")
+                if (currentKey.ToString().Equals("None"))
                     return;
 
                 EventKeyboardInput(currentKey);

@@ -21,6 +21,7 @@ namespace strange.examples.signals
 		
 		public ExampleService ()
 		{
+
 		}
 
 		public void Request(string url)

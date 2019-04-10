@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomRoom : MonoBehaviour
+public class DARandomRoom : MonoBehaviour
 {
     #region Parameter
 
@@ -41,7 +41,7 @@ public class RandomRoom : MonoBehaviour
     /// <summary>
     /// 记录房间数组
     /// </summary>
-    private List<Room> rooms;
+    private List<DARoom> rooms;
 
     /// <summary>
     /// 记录边缘数组
@@ -75,7 +75,7 @@ public class RandomRoom : MonoBehaviour
         mapArray = new int[DungeonHeight, DungeonWidth];
         mazeParent = new GameObject();
         mazeParent.name = "Maze";
-        rooms = new List<Room>();
+        rooms = new List<DARoom>();
         bounds = new List<Vector2>();
         regions = new int[DungeonHeight, DungeonWidth];
 
@@ -106,24 +106,9 @@ public class RandomRoom : MonoBehaviour
 
         ConnectRegions();
 
-        RemoveDeadEnds();
+        //RemoveDeadEnds();
 
         DrawMaze();
-
-        int max = 0;
-
-        for (int i = 0; i < Mathf.Sqrt(regions.Length); i++)
-        {
-            for (int j = 0; j < Mathf.Sqrt(regions.Length); j++)
-            {
-                if (regions[i, j] > max)
-                {
-                    max = regions[i, j];
-                }
-            }
-        }
-
-        Debuger.Log(max);
     }
 
     /// <summary>
@@ -131,7 +116,7 @@ public class RandomRoom : MonoBehaviour
     /// </summary>
     private void AddRooms()
     {
-        Room room = CreateRoom();
+        DARoom room = CreateRoom();
 
         bool overLap = false;
 
@@ -260,6 +245,7 @@ public class RandomRoom : MonoBehaviour
     {
         //找出连接多个区域的连接点
         List<Vector2>[] connectors = new List<Vector2>[currentRegionNum];
+        Debuger.Log(currentRegionNum);
 
         for (int k = 1; k < currentRegionNum; k++)
         {
@@ -353,15 +339,6 @@ public class RandomRoom : MonoBehaviour
     }
 
     /// <summary>
-    /// 查找死胡同
-    /// </summary>
-    /// <param name="floors"></param>
-    private void FindDeadLoad(List<Vector2> floors)
-    {
-
-    }
-
-    /// <summary>
     /// 计算周边墙的数量
     /// </summary>
     /// <param name="i"></param>
@@ -406,7 +383,7 @@ public class RandomRoom : MonoBehaviour
     /// 填充房间
     /// </summary>
     /// <param name="room"></param>
-    private void FillRoom(Room room)
+    private void FillRoom(DARoom room)
     {
         for (int i = room.X1; i < room.X2; i++)
         {
@@ -423,13 +400,13 @@ public class RandomRoom : MonoBehaviour
     /// 创建随机大小房间
     /// </summary>
     /// <returns></returns>
-    private Room CreateRoom()
+    private DARoom CreateRoom()
     {
         int roomHeight = Random.Range(roomMixSize, roomMaxSize) + 2;
         int roomWidth = Random.Range(roomMixSize, roomMaxSize) + 2;
         int x = Random.Range(1, DungeonWidth / 2) * 2;
         int y = Random.Range(1, DungeonHeight / 2) * 2;
-        Room room = new Room(x, y, x + roomWidth, y + roomHeight);
+        DARoom room = new DARoom(x, y, x + roomWidth, y + roomHeight);
 
         return room;
     }
@@ -439,9 +416,6 @@ public class RandomRoom : MonoBehaviour
     /// </summary>
     private void DrawMaze()
     {
-        mazeParent = new GameObject();
-        mazeParent.name = "Maze";
-
         for (int i = 0; i < DungeonWidth; i++)
         {
             //string log = "";
@@ -452,7 +426,7 @@ public class RandomRoom : MonoBehaviour
                 {
                     GameObject go = Instantiate(floorPrefab, new Vector3(i, j, 0), Quaternion.identity) as GameObject;
                     go.transform.SetParent(mazeParent.transform);
-                    go.transform.Find("number").GetComponent<SpriteRenderer>().sprite = numbers[regions[i, j]];
+                    go.transform.Find("number").GetComponent<SpriteRenderer>().sprite = numbers[regions[i,j]];
                 }
                 else if (mapArray[i, j] == (int)tileType.wall)
                 {
@@ -491,7 +465,7 @@ public class RandomRoom : MonoBehaviour
         Destroy(GameObject.Find("Maze"));
         mazeParent = new GameObject();
         mazeParent.name = "Maze";
-        rooms = new List<Room>();
+        rooms = new List<DARoom>();
         Generate();
     }
 
@@ -503,7 +477,7 @@ public class RandomRoom : MonoBehaviour
     /// <param name="j"></param>
     /// <param name="t"></param>
     /// <returns></returns>
-    int CheckNeighborWalls(int[,] array, int i, int j, int t)
+    private int CheckNeighborWalls(int[,] array, int i, int j, int t)
     {
         int count = 0;
 

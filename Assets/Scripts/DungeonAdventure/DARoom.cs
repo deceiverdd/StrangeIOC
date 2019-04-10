@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Room
+public class DARoom
 {
     private enum tileType { floor, wall, room };
     private enum RoomType { empty, bedroom, classroom };
@@ -13,7 +13,7 @@ public class Room
 
     public int[,] roomData;
 
-    public Room(int x1, int y1, int x2, int y2)
+    public DARoom(int x1, int y1, int x2, int y2)
     {
         X1 = x1;
         Y1 = y1;
@@ -76,7 +76,7 @@ public class Room
     /// </summary>
     /// <param name="other"></param>
     /// <returns></returns>
-    public bool inAnotherRoom(Room other)
+    public bool inAnotherRoom(DARoom other)
     {
         if (X1 >= other.X1 && X1 <= other.X2 && Y1 >= other.Y1 && Y1 <= other.Y2)
         {

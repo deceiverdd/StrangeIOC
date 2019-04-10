@@ -10,8 +10,7 @@ using strange.extensions.context.impl;
 namespace strange.examples.signals
 {
 	public class SignalsRoot : ContextView
-	{
-	
+	{	
 		void Awake()
 		{
 			context = new SignalsContext(this);
