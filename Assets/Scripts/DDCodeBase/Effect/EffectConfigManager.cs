@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Xml;
 using UnityEngine;
 
-public class ConfigManager : MonoSingleton<ConfigManager>
+public class EffectConfigManager : MonoSingleton<EffectConfigManager>
 {
     protected override void Awake()
     {
@@ -28,6 +28,11 @@ public class ConfigManager : MonoSingleton<ConfigManager>
         }       
     }
 
+    /// <summary>
+    /// 加载XML配置文件
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
     public static List<T> Load<T>() where T : new()
     {
         //这里要注意配置对象要与配置文件名称相同
@@ -107,7 +112,5 @@ public class ConfigManager : MonoSingleton<ConfigManager>
         }
 
         return ret;
-
     }
-
 }

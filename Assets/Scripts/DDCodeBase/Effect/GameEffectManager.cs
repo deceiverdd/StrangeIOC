@@ -11,11 +11,13 @@ public class GameEffectManager : MonoSingleton<GameEffectManager>
         this.GameEffectManagerInit();
     }
 
+    /// <summary>
+    /// 游戏开始时按照XML配置表生成对象池
+    /// </summary>
     public void GameEffectManagerInit()
     {
-
         //创建特效,加入到池里
-        List<conf_effect> _conf = ConfigManager.confEffectManager.datas;
+        List<conf_effect> _conf = EffectConfigManager.confEffectManager.datas;
 
         for (int i = 0; i < _conf.Count; i++)
         {
@@ -26,7 +28,6 @@ public class GameEffectManager : MonoSingleton<GameEffectManager>
             }
         }
     }
-
 
     /// <summary>
     /// 添加特效到世界
@@ -75,7 +76,13 @@ public class GameEffectManager : MonoSingleton<GameEffectManager>
         return ge;
     }
 
-    GameEffect GetEffect(int effectid, Vector3 worldPos)
+    /// <summary>
+    /// 按ID从对象池中取得特效
+    /// </summary>
+    /// <param name="effectid"></param>
+    /// <param name="worldPos"></param>
+    /// <returns></returns>
+    private GameEffect GetEffect(int effectid, Vector3 worldPos)
     {
         //对应池是否存在
         if (!effectPool.ContainsKey(effectid))
@@ -102,15 +109,19 @@ public class GameEffectManager : MonoSingleton<GameEffectManager>
         //如果没有可用特效，则创建一个新的
         if (ret == null)
         {
-            conf_effect conf = ConfigManager.confEffectManager.GetData(effectid);
+            conf_effect conf = EffectConfigManager.confEffectManager.GetData(effectid);
             if (conf != null) ret = CreateEffect(conf);
         }
 
         return ret;
     }
 
-    //添加一个特效到缓存池
-    GameEffect CreateEffect(conf_effect effect)
+    /// <summary>
+    /// 添加一个特效到缓存池
+    /// </summary>
+    /// <param name="effect"></param>
+    /// <returns></returns>
+    private GameEffect CreateEffect(conf_effect effect)
     {
         Object obj = Resources.Load(effect.file_path);
         if (obj == null)
@@ -135,6 +146,5 @@ public class GameEffectManager : MonoSingleton<GameEffectManager>
         }
         return null;
     }
-
 }
 
