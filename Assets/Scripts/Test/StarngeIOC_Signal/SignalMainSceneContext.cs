@@ -39,9 +39,7 @@ public class SignalMainSceneContext : MVCSContext
         
         //Bind Mediator for each View
         mediationBinder.Bind<SignalMainSceneView>().To<SignalMainSceneMediator>();
-
         commandBinder.Bind<SignalStartSignal>().To<SignalStartCommand>().Once();
-
         injectionBinder.Bind<SignalScoreChangeSignal>().ToSingleton();
     }
 }

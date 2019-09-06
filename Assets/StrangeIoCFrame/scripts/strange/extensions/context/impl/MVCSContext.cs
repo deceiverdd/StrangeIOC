@@ -191,7 +191,6 @@ namespace strange.extensions.context.impl
 		/// A Binder that maps Events to Sequences
 		public ISequencer sequencer{get;set;}
 
-
 		/// A list of Views Awake before the Context is fully set up.
 		protected static ISemiBinding viewCache = new SemiBinding();
 		
